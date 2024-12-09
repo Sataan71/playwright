@@ -1,4 +1,4 @@
-package de.beine;
+package de.bas.schulung.playwright;
 
 import com.microsoft.playwright.Browser;
 import com.microsoft.playwright.BrowserType;
