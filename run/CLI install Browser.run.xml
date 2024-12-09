@@ -1,0 +1,16 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="CLI install Browser" type="Application" factoryName="Application">
+    <envs>
+      <env name="NODE_EXTRA_CA_CERTS" value="D:\configs\certificates\CA_IVBB_Deutsche_Telekom-20.crt" />
+      <env name="PLAYWRIGHT_BROWSERS_PATH" value="D:\_dev\playwright-browser2" />
+      <env name="PLAYWRIGHT_DOWNLOAD_CONNECTION_TIMEOUT" value="120000" />
+      <env name="PLAYWRIGHT_DOWNLOAD_HOST" value="https://deb.bva.de/repository/playwright_microsoft_cdn" />
+    </envs>
+    <option name="MAIN_CLASS_NAME" value="com.microsoft.playwright.CLI" />
+    <module name="PlaywrightInJava" />
+    <option name="PROGRAM_PARAMETERS" value="install" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

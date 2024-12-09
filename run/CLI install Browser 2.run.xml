@@ -1,0 +1,24 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="CLI install Browser 2" type="Application" factoryName="Application">
+    <envs>
+      <env name="PLAYWRIGHT_BROWSERS_PATH" value="D:\_dev\playwright-browser3" />
+      <env name="HTTPS_PROXY" value="http://10.12.184.56:8001" />
+    </envs>
+    <option name="MAIN_CLASS_NAME" value="com.microsoft.playwright.CLI" />
+    <module name="PlaywrightInJava" />
+    <option name="PROGRAM_PARAMETERS" value="install --with-deps" />
+    <extension name="net.ashald.envfile">
+      <option name="IS_ENABLED" value="false" />
+      <option name="IS_SUBST" value="false" />
+      <option name="IS_PATH_MACRO_SUPPORTED" value="false" />
+      <option name="IS_IGNORE_MISSING_FILES" value="false" />
+      <option name="IS_ENABLE_EXPERIMENTAL_INTEGRATIONS" value="false" />
+      <ENTRIES>
+        <ENTRY IS_ENABLED="true" PARSER="runconfig" IS_EXECUTABLE="false" />
+      </ENTRIES>
+    </extension>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
