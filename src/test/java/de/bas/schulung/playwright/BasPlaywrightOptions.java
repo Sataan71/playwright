@@ -6,6 +6,9 @@ import com.microsoft.playwright.junit.Options;
 import com.microsoft.playwright.junit.OptionsFactory;
 import com.microsoft.playwright.options.Proxy;
 
+/**
+ * siehe auch Doku https://playwright.dev/java/docs/junit
+ */
 public class BasPlaywrightOptions implements OptionsFactory {
     @Override
     public Options getOptions() {
