@@ -1,13 +1,22 @@
 # Playwright
 
-## Anpassungen
+## Konfiguration
 
-### Netzwerkkonfiguration
+Konfiguration in der Regel über das Setzen von Umgebungsvariablen
 
-#### Proxy Konfiguration
+### Netzwerk
 
-Proxy Server: `HTTPS_PROXY=<PROXY-ADDR>`
+#### Proxy
+
+Proxy Server: 
+
+`HTTPS_PROXY=<PROXY-ADDR>`
+
 tbs no_proxy
+
+#### CA
+
+`NODE_EXTRA_CA_CERTS="/path/to/cert.pem"`
 
 ### Browser Storage Location
 
