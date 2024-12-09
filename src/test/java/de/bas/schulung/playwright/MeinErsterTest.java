@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 
-@UsePlaywright
+@UsePlaywright(BasPlaywrightOptions.class)
 public class MeinErsterTest {
 
     @Test
