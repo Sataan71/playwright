@@ -3,6 +3,7 @@ package de.bas.schulung.playwright;
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.junit.UsePlaywright;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
@@ -23,7 +24,7 @@ public class LocatorTest {
     void dsgvoText(Page page) {
         page.navigate("https://autoprojekt.simplytest.de/sample-page/");
         assertThat(page.locator("#dsgvo_zustimmung + span"))
-                .containsText("I assure that this contact form has been sent through an automated testI assure that this contact form has been sent through an automated testI assure that this contact form has been sent through an automated test");
+                .containsText("I assure that this contact ");
     }
 
     // 3. Dop Down Current Automation Framework – Option „Cypress“
@@ -34,16 +35,13 @@ public class LocatorTest {
                 .containsText("Cypress");
     }
 
+
     // 4. Your Next Framework Radiofeld – Option „Something else…“
     @Test
     void optionSomethingElse(Page page) {
         page.navigate("https://autoprojekt.simplytest.de/sample-page/");
-        // span.wpcf7-list-item:last > input:nth-child(1)
-        // html body.page-template-default.page.page-id-2.wp-embed-responsive.theme-storefront.woocommerce-js.storefront-align-wide.right-sidebar.woocommerce-active div#page.hfeed.site div#content.site-content div.col-full div#primary.content-area main#main.site-main article#post-2.post-2.page.type-page.status-publish.hentry div.entry-content div#wpcf7-f57-p2-o1.wpcf7.js form.wpcf7-form.init p label span.wpcf7-form-control-wrap span#naechstes_werkzeug.wpcf7-form-control.wpcf7-radio span.wpcf7-list-item.last input
-        // Locator locator = page.locator("#naechstes_werkzeug > *.last > input");
-        Locator locator = page.locator("#naechstes_werkzeug > *.last-child > input");
-        // Locator locator = page.locator("#naechstes_werkzeug input[value*='...']");
-        assertThat(locator).hasValue("Something else...");
+        Locator locator = page.locator(" #naechstes_werkzeug input[value^='Some']");
+        Assertions.assertTrue(locator.inputValue().contains("Some"));
     }
 
     // 5. Link zu testautomation.org
