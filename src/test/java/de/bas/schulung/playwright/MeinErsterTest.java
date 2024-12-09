@@ -37,4 +37,11 @@ public class MeinErsterTest {
         page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Suchen")).click();
         assertThat(page.locator("#firstHeading")).containsText("Hallo Welt!");
     }
+
+    @Test
+    void drittesBasSzenario(Page page) {
+        page.navigate("https://wiki.bva.de/display/OB/BASis+-+Unser+Wiki+im+BAS");
+        assertThat(page.locator("#title-text a"))
+                .containsText("BASis - Unser Wiki im BAS");
+    }
 }
