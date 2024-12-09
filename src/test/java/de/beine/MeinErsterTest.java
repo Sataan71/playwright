@@ -1,6 +1,7 @@
 package de.beine;
 
 import com.microsoft.playwright.Browser;
+import com.microsoft.playwright.BrowserType;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.Playwright;
 import org.junit.jupiter.api.Test;
@@ -11,14 +12,17 @@ public class MeinErsterTest {
 
     @Test
     void erstesSzenario() {
-        Playwright playwright = Playwright.create();
-        Browser browser = playwright.chromium().launch();
-        Page page = browser.newPage();
+        try (Playwright playwright = Playwright.create()) {
+            BrowserType.LaunchOptions options = new BrowserType.LaunchOptions();
+            options.setHeadless(false);
+            options.setSlowMo(500);
 
-        page.navigate("https://heise.de/");
+            Browser browser = playwright.chromium().launch(options);
+            Page page = browser.newPage();
 
-        assertThat(page).hasURL("https://www.heise.de/");
+            page.navigate("https://heise.de/");
 
-        playwright.close();
+            assertThat(page).hasURL("https://www.heise.de/");
+        }
     }
 }
