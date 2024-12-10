@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 
 @UsePlaywright
-public class OnlineShopTest {
+public class OnlineShopTestUwe {
 
     public static final String SHOP_START = "https://autoprojekt.simplytest.de/";
     private Page page;
