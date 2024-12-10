@@ -16,7 +16,7 @@ public class VtsUploadTest {
     static final String KEYCLOAK_PASSWORD = System.getProperty("playwrightPassword");
 
     @Test
-    void fillMenu(Page page) throws InterruptedException {
+    void fillFormular(Page page) throws InterruptedException {
         doLogin(page);
         chooseCheckboxOption(page, "form:klassifikationsschluessel", 20);
         chooseCheckboxMenu(page, "form:geltungsbereiche", "1", "2");
@@ -45,5 +45,30 @@ public class VtsUploadTest {
     public void chooseCheckboxOption(Page page, String componentId, int dataItemValue) {
         page.locator("[id='%s'] ul.ui-selectcheckboxmenu-multiple-container".formatted(componentId)).click();
         page.locator("[id='%s_panel'] li[data-item-value='%d']".formatted(componentId, dataItemValue)).click();
+    }
+
+    @Test
+    void registrationTest(Page page) throws InterruptedException {
+        page.navigate("https://vts-upload.bundesamtsozialesicherung.de/integration/");
+        assertThat(page)
+                .hasURL(Pattern.compile("https://portal.bundesamtsozialesicherung.de/auth/realms/VTS-TEST/login-actions/registration.*"));
+
+        page.locator("#kc-registration a").click();
+
+        page.getByPlaceholder("E-Mail").fill("m.beine@gmx.net");
+        page.getByPlaceholder("Telefon").fill("01732416750");
+
+        page.getByLabel("Kasse/Verband/Dienstleister/").press("ArrowDown");
+        page.getByLabel("Kasse/Verband/Dienstleister/").press("ArrowDown");
+        page.getByLabel("Kasse/Verband/Dienstleister/").press("ArrowDown");
+        page.getByLabel("Kasse/Verband/Dienstleister/").click();
+
+        page.getByLabel("Krankenkasse").press("ArrowDown");
+        page.getByLabel("Krankenkasse").press("ArrowDown");
+        page.getByLabel("Krankenkasse").click();
+
+        Thread.sleep(50_000);
+
+
     }
 }

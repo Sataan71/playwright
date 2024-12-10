@@ -2,7 +2,7 @@
   <configuration default="false" name="CLI" type="Application" factoryName="Application">
     <option name="MAIN_CLASS_NAME" value="com.microsoft.playwright.CLI" />
     <module name="PlaywrightInJava" />
-    <option name="PROGRAM_PARAMETERS" value="codegen" />
+      <option name="PROGRAM_PARAMETERS" value="help"/>
     <method v="2">
       <option name="Make" enabled="true" />
     </method>
