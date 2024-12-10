@@ -1,8 +1,8 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="CLI install Browser 2" type="Application" factoryName="Application">
     <envs>
-      <env name="PLAYWRIGHT_BROWSERS_PATH" value="D:\_dev\playwright-browser3" />
       <env name="HTTPS_PROXY" value="http://10.12.184.56:8001" />
+      <env name="PLAYWRIGHT_DOWNLOAD_CONNECTION_TIMEOUT" value="120000" />
     </envs>
     <option name="MAIN_CLASS_NAME" value="com.microsoft.playwright.CLI" />
     <module name="PlaywrightInJava" />
