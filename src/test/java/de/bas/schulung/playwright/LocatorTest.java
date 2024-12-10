@@ -31,8 +31,8 @@ public class LocatorTest {
     @Test
     void optionCypress(Page page) {
         page.navigate("https://autoprojekt.simplytest.de/sample-page/");
-        assertThat(page.locator("#aktuelles_werkzeug > option[value=Cypress]"))
-                .containsText("Cypress");
+        assertThat(page.locator("#aktuelles_werkzeug option[value=Cypress]"))
+                .hasText("Cypress");
     }
 
 
@@ -48,8 +48,7 @@ public class LocatorTest {
     @Test
     void linkTestautomation(Page page) {
         page.navigate("https://autoprojekt.simplytest.de/sample-page/");
-        // .entry-content > p:nth-child(2) > a:nth-child(1)
-        Locator locator = page.locator(".entry-content a[href$=\"testautomatisierung.org\"]");
-        String html = locator.innerHTML();
+        Locator linkLocator = page.locator("a[href*='testautomat']");
+        assertThat(linkLocator).containsText("link to");
     }
 }
