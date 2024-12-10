@@ -1,63 +1,59 @@
 package de.bas.schulung.playwright;
 
-import com.microsoft.playwright.Page;
+
+import com.microsoft.playwright.*;
 import com.microsoft.playwright.junit.UsePlaywright;
+import com.microsoft.playwright.options.AriaRole;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@UsePlaywright(PlaywrightOptions.class)
+@UsePlaywright
 public class OnlineShopTest {
 
-    @Test
-    void onlineshopTest(Page page) throws InterruptedException {
-        page.navigate("https://autoprojekt.simplytest.de/");
+    public static final String SHOP_START = "https://autoprojekt.simplytest.de/";
+    private Page page;
+    private Browser browser;
+    private BrowserContext context;
 
-        assertThat(page.locator(".woocommerce-products-header__title"))
-                .containsText("Shop");
-        String s = page.locator("#site-header-cart .count").textContent();
-        assertTrue(s.startsWith("0 "));
+    @BeforeEach
+    public void setUp() {
+        Playwright playwright = Playwright.create();
+        BrowserType.LaunchOptions options = new BrowserType.LaunchOptions();
+        options.setHeadless(false);
+        options.setSlowMo(500);
+        browser = playwright.chromium().launch(options);
+        context = browser.newContext();
+        page = context.newPage();
+        page.navigate(SHOP_START);
+    }
 
-        page.locator("[data-product_sku='woo-album']").click();
-
-//        assertThat(page.locator("#site-header-cart .count")).containsText(Pattern.compile("1 items"));
-//
-//        page.locator("#site-header-cart a.cart-contents").click();
-        Thread.sleep(10_000);
+    @AfterEach
+    public void tearDown() {
+        page.close();
     }
 
     @Test
-    void onlineshopTestbyTim(Page page) throws InterruptedException {
-        page.navigate("https://autoprojekt.simplytest.de/");
-        assertThat(page).hasURL("https://autoprojekt.simplytest.de/");
-
-        assertThat(page.locator("h1")).hasText("Shop");
-        assertTrue(page.locator("#site-header-cart .count").textContent().startsWith("0 "));
-
-        page.locator(".products .product:first-of-type a.add_to_cart_button").click();
-
-        page.waitForTimeout(3);
-
-        page.locator(".products .product:first-of-type a.added_to_cart").click();
-        page.locator(".shop_table input.qty").click();
-        page.keyboard().press("ArrowUp");
-
-        page.locator("button[name='update_cart']").click();
-        page.locator(".entry-content .woocommerce-message").waitFor();
-        assertThat(page.locator("td[data-title='Total']")).containsText("30");
-
-        page.waitForTimeout(3);
-
-        page.locator("a.checkout-button").click();
-
-        page.locator("#billing_first_name").fill("Tim");
-        page.locator("#billing_last_name").fill("Doe");
+    public void doShopping() {
+        assertThat(page).hasURL(SHOP_START);
+        page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions());
+        String ueberschrift = page.locator("header h1").textContent();
+        Assertions.assertEquals("Shop", ueberschrift);
+        String warenkorbleer = page.locator(".cart-contents .count").textContent();
+        Assertions.assertEquals("0 items", warenkorbleer);
+        page.getByLabel("Add “Album” to your cart").click();
+        page.getByTitle("View cart").click();
+        page.getByLabel("Album quantity").fill("2");
+        page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Update cart")).click();
+        String wert = page.locator("[data-title='Total'] bdi").textContent();
+        Assertions.assertTrue(wert.contains("30,00"));
+        page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Proceed to checkout ")).click();
+        page.locator("#billing_first_name").fill("Uwe");
+        page.locator("#billing_last_name").fill("Kirsche");
+        page.locator("#billing_company").fill("Schwarzkopf");
         page.locator("#select2-billing_country-container").click();
-        page.locator("input.select2-search__field").fill("Germany");
-        page.waitForTimeout(2);
-        page.locator("ul.select2-results__options li:first-of-type").click();
-
-        page.waitForTimeout(30);
     }
 }

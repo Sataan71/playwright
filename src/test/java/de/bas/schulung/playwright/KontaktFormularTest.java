@@ -15,6 +15,8 @@ public class KontaktFormularTest {
 
     public static final String SAMPLE_PAGE = "https://autoprojekt.simplytest.de/sample-page/";
     private Page page;
+    private Browser browser;
+    private BrowserContext context;
 
     @BeforeEach
     public void setUp() {
@@ -22,8 +24,9 @@ public class KontaktFormularTest {
         BrowserType.LaunchOptions options = new BrowserType.LaunchOptions();
         options.setHeadless(false);
         options.setSlowMo(500);
-        Browser browser = playwright.chromium().launch(options);
-        page = browser.newPage();
+        browser = playwright.chromium().launch(options);
+        context = browser.newContext();
+        page = context.newPage();
         page.navigate(SAMPLE_PAGE);
     }
 
@@ -77,5 +80,14 @@ public class KontaktFormularTest {
             alert.accept();
         });
         page.locator("#alert2").click();
+    }
+
+    @Test
+    public void testGutesAngebot(){
+        assertThat(page).hasURL(SAMPLE_PAGE);
+        Page newPage = context.waitForPage(() -> page.click("#angebot"));
+        newPage.waitForLoadState();
+        assertThat(newPage).hasURL("https://autoprojekt.simplytest.de/produkt/beanie/");
+        newPage.close();
     }
 }
